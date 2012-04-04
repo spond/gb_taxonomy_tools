@@ -61,4 +61,24 @@ The output summary file is simply a tab-separated count:
     subkingdom	Dikarya	97
     ...
   
+##Convert the taxonomic tree into a PostScript image##
   
+`tree2ps` takes the Newick tree output of `taxonomy2tree` and converts it to a PostScript rendering subject to a variety of
+conditions. 
+
+The program arguments are as follows
+
+1. Newick tree file
+2. The file to write PostScript to
+3. Maximum taxonomic depth -- only show leaves this many or fewer steps away from the root. Use 0 or a negative number to show all levels.
+4. font size (in points)
+5. Maximum number of leaves -- display the tree up to the depth level (see 3) which has this many or fewer leaves.
+6. Count duplicate tax ids -- this is used for coloring the tree; if set to 0, only count the number of leaves below each node, ignoring the counts associated with the leaves themselves.
+                            
+Try 
+
+`$tree2ps test/data/test.tree test/data/tree1.ps 5 8 0 1`
+
+`$tree2ps test/data/test.tree test/data/tree2.ps 0 8 256 1`
+
+`$tree2ps test/data/test.tree test/data/tree3.ps 0 8 256 0`
