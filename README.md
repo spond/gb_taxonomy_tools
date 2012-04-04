@@ -48,12 +48,21 @@ taxonomic group.
 
 The output summary file is simply a tab-separated count:
 
-`root  root	10401
-superkingdom	Archaea	295
-superkingdom	Bacteria	9469
-superkingdom	Eukaryota	553
-superkingdom	Viruses	16
-kingdom	Fungi	100
-kingdom	Metazoa	231
-kingdom	Viridiplantae	110
-subkingdom	Dikarya	97`
+  root  root	10401
+  
+  superkingdom	Archaea	295
+  
+  superkingdom	Bacteria	9469
+  
+  superkingdom	Eukaryota	553
+  
+  superkingdom	Viruses	16
+  
+  kingdom	Fungi	100
+  
+  kingdom	Metazoa	231
+  
+  kingdom	Viridiplantae	110
+  
+  subkingdom	Dikarya	97
+  ...
