@@ -1,3 +1,10 @@
+To build, use
+
+`cmake ./`
+`make install`
+
+---
+
 These are four simple utilities which perform the following manipulations and visualization tasks on GenBank 
 taxonomic information.
 
