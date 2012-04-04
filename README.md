@@ -12,7 +12,7 @@ These are four simple utilities which perform the following manipulations and vi
 taxonomic information.
 
 `gid-taxid` : convert a list of GenBank IDs and associated counts into the list of tripets: genbank id, taxonomy id, count. 
-It requires access to (quite large) mapping files maintained by GenBank, e.g. ftp://ftp.ncbi.nih.gov/pub/taxonomy/gi_taxid_nucl.zip
+It requires access to (quite large) mapping files maintained by GenBank <ftp://ftp.ncbi.nih.gov/pub/taxonomy/gi_taxid_nucl.zip>
 which are tab separated lists of  `gid taxid count`, e.g. the input line `160338813  160` is output as `160338813  436308	160`
 
 Try running it on as `$gid-taxid tests/data/test.gid path/to/gi_taxid_nucl.dmp` 
@@ -23,7 +23,7 @@ The result should be as in tests/data/test.taxid
 
 `taxonomy-reader`: convert the output of `gid-taxid` (i.e. gid taxid count triplets) into a fully expanded 22 level 
 taxonomy based on NCBI classification. The program requires access to the nodes.dmp and names.dmp files which match taxid
-data to scientific names and define the taxonomic hierarchy (ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz). 
+data to scientific names and define the taxonomic hierarchy <ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz>. 
 
 Try running
 `$taxonomy-reader path/to/names.dmp path/to/nodes.dmp` and entering `160338813  436308	160` <enter> <ctrl-D> on the command line.
@@ -50,21 +50,15 @@ taxonomic group.
 
 The output summary file is simply a tab-separated count:
 
-  root  root	10401
+    root  root	10401
+    superkingdom	Archaea	295
+    superkingdom	Bacteria	9469
+    superkingdom	Eukaryota	553
+    superkingdom	Viruses	16
+    kingdom	Fungi	100
+    kingdom	Metazoa	231
+    kingdom	Viridiplantae	110
+    subkingdom	Dikarya	97
+    ...
   
-  superkingdom	Archaea	295
   
-  superkingdom	Bacteria	9469
-  
-  superkingdom	Eukaryota	553
-  
-  superkingdom	Viruses	16
-  
-  kingdom	Fungi	100
-  
-  kingdom	Metazoa	231
-  
-  kingdom	Viridiplantae	110
-  
-  subkingdom	Dikarya	97
-  ...
