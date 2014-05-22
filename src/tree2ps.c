@@ -548,7 +548,7 @@ int main (int argc, const char * argv[])
 				break;
 			case 4: /* initial read in branch length */
 			{
-				if (isnumber (currentChar))
+				if (isdigit (currentChar))
 				{
 					automatonState    = 5;
 					sTag2->startIndex = globalNameBuffer->sLength;
@@ -562,7 +562,7 @@ int main (int argc, const char * argv[])
 			}
 			case 5: /* continued read branch length */
 			{
-				if (isnumber (currentChar))
+				if (isdigit (currentChar))
 				{
 					sTag2->length++;
 					appendCharacterToString (globalNameBuffer,currentChar);
