@@ -1,6 +1,6 @@
 language: c
 
-script: cmake && make 
+script: cmake ./ && make 
 
 compiler: 
     - clang
