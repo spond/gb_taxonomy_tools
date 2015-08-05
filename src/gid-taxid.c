@@ -8,6 +8,9 @@
 
 #include "avl.h"
 
+#define MAX_LINE_BUFFER 2048L
+
+
 /*#define DEBUG_ME*/
 
 /*---------------------------------------------------------------------------------------------------- */
@@ -157,15 +160,19 @@ int main (int argc, const char * argv[])
   
   char	automatonState			= 0,
   currentField			= 0,
-  currentChar				= 0;
+  currentChar				= 0,
+  line_buffer       [MAX_LINE_BUFFER];
   
   long	currentLineID			= 1,
   expectedFields			= 2,
   mappedID				,
   indexer;
   
+  size_t  current_buffer_index    = 0L,
+  current_buffer_size     = 0L;
   
   
+ 
   globalNameBuffer = allocateNewString();
   globalTagBuffer	 = allocateNewBufferedTag();
   
@@ -206,9 +213,18 @@ int main (int argc, const char * argv[])
     digits [indexer] = 1;
   }
   
-  currentChar = fgetc(inFile);
-  while (!feof(inFile))
-  {
+  for (;;) {
+    if (current_buffer_index >= current_buffer_size) {
+      current_buffer_size = fread (line_buffer, 1L, MAX_LINE_BUFFER, inFile);
+      if (current_buffer_size == 0L) {
+        break;
+      }
+      current_buffer_index = 1L;
+      currentChar = line_buffer[0];
+    } else {
+      currentChar = line_buffer[current_buffer_index++];
+    }
+  
     switch (automatonState)
     {
       case 0: /* start of the line; expecting numbers */
@@ -269,17 +285,26 @@ int main (int argc, const char * argv[])
         
         
     }
-    currentChar = fgetc(inFile);
   }
   
   fclose (inFile);
 		
-  currentChar = fgetc(mapFile);
   aTag	    = allocateNameTag();
   fprintf (stderr, "Reading gid-taxid mapping file...\n");
   currentLineID = 0;
-  while (!feof(mapFile))
-  {
+  current_buffer_index = current_buffer_size = 0L;
+
+  for (;;) {
+    if (current_buffer_index >= current_buffer_size) {
+      current_buffer_size = fread (line_buffer, 1L, MAX_LINE_BUFFER, mapFile);
+      if (current_buffer_size == 0L) {
+        break;
+      }
+      current_buffer_index = 1L;
+      currentChar = line_buffer[0];
+    } else {
+      currentChar = line_buffer[current_buffer_index++];
+    }
     if (currentLineID > 1 && currentLineID % 5000000 == 0 && automatonState == 0) {
       fprintf (stderr, "Read %ld lines\n", currentLineID);
     }
@@ -335,7 +360,6 @@ int main (int argc, const char * argv[])
         
         
     }
-    currentChar = fgetc(mapFile);
   }
   
   fclose (mapFile);
