@@ -1,3 +1,5 @@
+![travis status](https://travis-ci.org/spond/gb_taxonomy_tools.svg?branch=master)
+
 ## Use CMake to install #
 
 To build, use
