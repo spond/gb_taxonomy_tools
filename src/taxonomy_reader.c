@@ -13,7 +13,7 @@ const char UsageString[] = "Usage: taxonomy-reader\n\t<GenBank taxid to name map
 
 /*#define DEBUG_ME*/
 
-#define MAX_LINE_BUFFER 4096L
+#define MAX_LINE_BUFFER 2048L
 
 /*---------------------------------------------------------------------------------------------------- */
 
@@ -158,6 +158,9 @@ int main (int argc, const char * argv[])
   tab_count,
   indexer;
   
+  size_t  current_buffer_index    = 0L,
+          current_buffer_size     = 0L;
+  
   
   
   appendCharBufferToString(scientificName,	"scientific name");
@@ -201,9 +204,20 @@ int main (int argc, const char * argv[])
     }
   }
   
-  currentChar = fgetc(inFile);
-  while (!feof(inFile))
+  
+  for (;;)
   {
+    if (current_buffer_index >= current_buffer_size) {
+      current_buffer_size = fread (line_buffer, 1L, MAX_LINE_BUFFER, inFile);
+      if (current_buffer_size == 0L) {
+        break;
+      }
+      current_buffer_index = 1L;
+      currentChar = line_buffer[0];
+    } else {
+      currentChar = line_buffer[current_buffer_index++];
+    }
+    
     switch (automatonState)
     {
       case 0: /* start of the line; expecting numbers */
@@ -280,7 +294,6 @@ int main (int argc, const char * argv[])
         break;
         
     }
-    currentChar = fgetc(inFile);
   }
   
   fclose (inFile);
@@ -298,11 +311,20 @@ int main (int argc, const char * argv[])
   automatonState = 0;
   currentLineID  = 1;
   currentField   = 0;
+  current_buffer_index = 0L;
+  current_buffer_size = 0L;
   
-  currentChar = fgetc(structFile);
-  
-  while (!feof(structFile))
-  {
+  for (;;) {
+    if (current_buffer_index >= current_buffer_size) {
+      current_buffer_size = fread (line_buffer, 1L, MAX_LINE_BUFFER, structFile);
+      if (current_buffer_size == 0L) {
+        break;
+      }
+      current_buffer_index = 1L;
+      currentChar = line_buffer[0];
+    } else {
+      currentChar = line_buffer[current_buffer_index++];
+    }
     switch (automatonState)
     {
       case 0: /* start of the line; expecting numbers */
@@ -388,7 +410,6 @@ int main (int argc, const char * argv[])
         break;
         
     }
-    currentChar = fgetc(structFile);
   }
   
   fclose (structFile);
