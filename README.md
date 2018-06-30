@@ -1,6 +1,6 @@
 ![travis status](https://travis-ci.org/spond/gb_taxonomy_tools.svg?branch=master)
 
-## Use CMake to install #
+## Use CMake to install ##
 
 To build, use
 
@@ -8,7 +8,7 @@ To build, use
 
 `make install` (by default into /usr/local)
 
-##Convert GID to TaxID##
+## Convert GID to TaxID ##
 
 These are four simple utilities which perform the following manipulations and visualization tasks on GenBank 
 taxonomic information.
@@ -21,7 +21,7 @@ Try running it on as `$gid-taxid tests/data/test.gid path/to/gi_taxid_nucl.dmp`
 
 The result should be as in tests/data/test.taxid 
 
-##Convert TaxID into full taxonomic rankings##
+## Convert TaxID into full taxonomic rankings ##
 
 `taxonomy-reader`: convert the output of `gid-taxid` (i.e. gid taxid count triplets) into a fully expanded 22 level 
 taxonomy based on NCBI classification. The program requires access to the nodes.dmp and names.dmp files which match taxid
@@ -63,7 +63,7 @@ The output summary file is simply a tab-separated count:
     subkingdom	Dikarya	97
     ...
   
-##Convert the taxonomic tree into a PostScript image##
+## Convert the taxonomic tree into a PostScript image ##
   
 `tree2ps` takes the Newick tree output of `taxonomy2tree` and converts it to a PostScript rendering subject to a variety of
 conditions. 
